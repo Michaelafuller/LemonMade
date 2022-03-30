@@ -1,9 +1,25 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Button, StyleSheet, Image} from 'react-native';
+import axios from 'axios';
 
 import colors from '../assets/palette';
 
 function Dashboard({navigation}) {
+    const [weather, setWeather] = useState({});
+
+    useEffect(() => {
+        axios.get('http://api.weatherapi.com/v1/current.json?key=9dc6cb1818c44e1aa6e13945223003&q=auto:ip&aqi=no')
+            .then(res => {
+                setWeather({
+                    temp: res.data.current.temp_f,
+                    condition: res.data.current.condition.text,
+                    icon: res.data.current.condition.icon,
+                    wind: res.data.current.wind_mph
+                })
+            })
+            .catch(err => console.log(err))
+    }, [])
+
     return (
         <View style={[styles.background]}>
             <View >
@@ -13,9 +29,9 @@ function Dashboard({navigation}) {
                 </View>
                 <Button title="Open Stand" onPress={() => navigation.navigate('OpenStand')}></Button>
             </View>
-            <View style={styles.body}>
+            <View style={[styles.body, {marginTop: 20}]}>
                 <View style={styles.titleBar}>
-                    <Text style={{color: colors.cadYellow, fontSize: 30, marginBottom:10}}>Pricing</Text>
+                    <Text style={{color: colors.cadYellow, fontSize: 30}}>Pricing</Text>
                     <Button title="Change Price" onPress={() => navigation.navigate('ChangePrice')}></Button>
                 </View>
                 <View>
@@ -38,6 +54,15 @@ function Dashboard({navigation}) {
                 <Text>Plastic Cups:</Text>
                 <Text>Other stuff...</Text>
             </View>
+            <View style={{backgroundColor: colors.polishedPine, borderRadius: 5, marginTop:10}}>
+                <Text style={{marginTop: 10, marginLeft: 10, fontSize:20, color: colors.cadYellow}}>Weather</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+                    <Image style={{height: 50, width: 50}} source={{uri: "https:"+weather.icon}}/>
+                    <Text>{weather.condition}</Text>
+                    <Text>{weather.temp}°</Text>
+                    <Text>{weather.wind} mph</Text>
+                </View>
+            </View>
         </View>
     );
 }
@@ -54,8 +79,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         fontSize: 20,
-        marginBottom: 20,
-        marginTop: 20
+        marginBottom: 10,
+        marginTop: 10
     },
     button: {
         height: '100%',
