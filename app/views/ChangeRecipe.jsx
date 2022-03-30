@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, Button, Image, Picker, TextInput} from 'react-native';
+import {View, StyleSheet, Text, Button, Image, TextInput, Picker} from 'react-native';
 
 import colors from '../assets/palette';
 

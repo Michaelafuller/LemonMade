@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet, Image} from 'react-native';
 
-import colors from '../assets/palette'
+import colors from '../assets/palette';
 
 function Dashboard({navigation}) {
     return (
-        <View style={styles.background}>
+        <View style={[styles.background]}>
             <View >
                 <View style={[styles.title, styles.titleBar]}>
                     <Text style={{color: colors.cadYellow, fontSize:50}}>LemonMade</Text>

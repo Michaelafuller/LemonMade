@@ -12,7 +12,7 @@ function CloseStand({navigation}) {
             </View>
             <View style={styles.body}>
                 <View>
-                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20, alignSelf: 'center'}}>Today's Session</Text>
+                    <Text style={{color: colors.cadYellow, fontSize: 30, marginBottom: 20, alignSelf: 'center'}}>Today's Session</Text>
                 </View>
                 <View>
                     <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Total Sales:</Text>

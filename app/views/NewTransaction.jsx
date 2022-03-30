@@ -1,6 +1,5 @@
 import React from 'react';
-import {TextInput, View, StyleSheet, Button, Picker, Text, Image} from 'react-native';
-// import {Picker} from 'react-native-picker/picker';
+import {TextInput, View, StyleSheet, Button, Text, Image, Picker} from 'react-native';
 
 import colors from '../assets/palette'
 
