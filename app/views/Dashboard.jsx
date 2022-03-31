@@ -27,7 +27,7 @@ function Dashboard({navigation}) {
                     <Text style={{color: colors.cadYellow, fontSize:50}}>LemonMade</Text>
                     <Image style={styles.logo} source={{uri: "https://d3gg7p8kl1yfy0.cloudfront.net/detail_Fresh_Squeezed_Lemonade_2.png?mtime=20190711110123&focal=none"}}/>
                 </View>
-                <Button title="Open Stand" onPress={() => navigation.navigate('OpenStand')}></Button>
+                <Button title="Open Stand" onPress={() => navigation.navigate('Countdown')}></Button>
             </View>
             <View style={[styles.body, {marginTop: 20}]}>
                 <View style={styles.titleBar}>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     title: {
         backgroundColor: colors.polishedPine,
         color: colors.cadYellow,
-        width: '75%',
+        width: '80%',
         height: 80,
         alignItems: 'center',
         padding: 5,

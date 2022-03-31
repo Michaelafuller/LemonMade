@@ -13,7 +13,7 @@ function BuyIngredients({navigation}) {
             <View style={styles.body}>
                 <View>
                     <Text style={{color: colors.cadYellow}}>I recently bought more...</Text>
-                    <View style={{backgroundColor: 'white', marginTop: 20, width: 370}}>
+                    <View style={{backgroundColor: 'white', marginTop: 20, width: '80%'}}>
                         <Picker>
                             <Picker.Item label='Lemons' value='lemons' />
                             <Picker.Item label='Sugar' value='sugar' />
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     title: {
         backgroundColor: colors.polishedPine,
         color: colors.cadYellow,
-        width: '75%',
+        width: '80%',
         height: 80,
         alignItems: 'center',
         padding: 5,

@@ -1,11 +1,13 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet, Image} from 'react-native';
+import Fireworks from './Fireworks2';
 
 import colors from '../assets/palette'
 
 function CloseStand({navigation}) {
     return (
         <View style={styles.background}>
+            <Fireworks/>
             <View style={[styles.title, styles.titleBar]}>
                 <Text style={{color: colors.cadYellow, fontSize:50}}>LemonMade</Text>
                 <Image style={styles.logo} source={{uri: "https://d3gg7p8kl1yfy0.cloudfront.net/detail_Fresh_Squeezed_Lemonade_2.png?mtime=20190711110123&focal=none"}}/>

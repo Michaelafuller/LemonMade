@@ -18,7 +18,7 @@ function NewTransaction({navigation}) {
                     />
                 </View>
                 <View>
-                    <View style={{backgroundColor: 'white', marginTop: 30, width: 370}}>
+                    <View style={{backgroundColor: 'white', marginTop: 30, width: '80%'}}>
                         <Picker>
                             <Picker.Item label='Lemonade' value='lemonade' />
                             <Picker.Item label='Lemonade Mai Tai' value='lemonadeMaiTai' />
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     title: {
         backgroundColor: colors.polishedPine,
         color: colors.cadYellow,
-        width: '75%',
+        width: '80%',
         height: 80,
         alignItems: 'center',
         padding: 5,

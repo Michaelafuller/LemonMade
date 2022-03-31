@@ -11,7 +11,7 @@ function ChangeRecipe({navigation}) {
                 <Image style={styles.logo} source={{uri: "https://d3gg7p8kl1yfy0.cloudfront.net/detail_Fresh_Squeezed_Lemonade_2.png?mtime=20190711110123&focal=none"}}/>
             </View>
             <View style={styles.body}>
-                <View style={{backgroundColor: 'white', marginTop: 10, width: 370}}>
+                <View style={{backgroundColor: 'white', marginTop: 10, width: '80%'}}>
                     <Picker>
                         <Picker.Item label='Lemonade' value='lemonade' />
                         <Picker.Item label='Lemonade Mai Tai' value='lemonadeMaiTai' />
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     title: {
         backgroundColor: colors.polishedPine,
         color: colors.cadYellow,
-        width: '75%',
+        width: '80%',
         height: 80,
         alignItems: 'center',
         padding: 5,

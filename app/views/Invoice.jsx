@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, Button, StyleSheet, Image} from 'react-native';
+import {View, Text, TextInput, Button, StyleSheet, Image, Animated} from 'react-native';
 
 import colors from '../assets/palette';
 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     title: {
         backgroundColor: colors.polishedPine,
         color: colors.cadYellow,
-        width: '75%',
+        width: '80%',
         height: 80,
         alignItems: 'center',
         padding: 5,
