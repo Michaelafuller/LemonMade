@@ -1,9 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Button, Image } from 'react-native';
+import axios from 'axios';
 
 import colors from '../assets/palette'
 
 function OpenStand({navigation}) {
+    const [currentStand, setCurrentStand] = useState({});
+    const [allTransactions, setAllTransactions] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/stands/62465222da883a9345827686')
+        .then((res)=>setCurrentStand(res.data))
+        .catch((err)=>console.log(err))
+    
+    }, [])
+
+
     return (
         <View style={styles.background}>
             <View>
@@ -13,14 +25,13 @@ function OpenStand({navigation}) {
                 </View>
                 <View style={styles.body}>
                     <View style={styles.textBody}>
-                        <Text style={styles.textColor}>Total Sales:</Text>
-                        <Text style={styles.textColor}>Last Sale:</Text>
+                        <Text style={styles.textColor}>Total Sales: ${currentStand.total_sales}</Text>
+                        <Text style={styles.textColor}>Total Tips: ${currentStand.total_tips}</Text>
                     </View>
                     <View style={styles.textBody}>
-                        <Text style={styles.textColor}>Costs:</Text>
-                        <Text style={styles.textColor}>Cups Sold:</Text>
+                        <Text style={styles.textColor}>Costs: ${currentStand.total_costs_incured}</Text>
+                        <Text style={styles.textColor}>Cups Sold: {currentStand.total_cups}</Text>
                     </View>
-                    <Text style={{alignSelf: 'center', color: colors.cadYellow, fontSize: 20}}>Tips:</Text>
                 </View>
                 <View style={[styles.titleBar, {marginTop: '20%'}]}>
                     <Button title='New Transaction' onPress={() => navigation.navigate('NewTransaction')}></Button>

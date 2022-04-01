@@ -1,10 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Button, StyleSheet, Image} from 'react-native';
 import Fireworks from './Fireworks2';
+import axios from 'axios';
 
 import colors from '../assets/palette'
 
 function CloseStand({navigation}) {
+    const [currentStand, setCurrentStand] = useState({});
+    const [allTransactions, setAllTransactions] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/stands/62465222da883a9345827686')
+        .then((res)=>setCurrentStand(res.data))
+        .catch((err)=>console.log(err))
+    
+    }, [])
+
+
     return (
         <View style={styles.background}>
             <Fireworks/>
@@ -17,11 +29,10 @@ function CloseStand({navigation}) {
                     <Text style={{color: colors.cadYellow, fontSize: 30, marginBottom: 20, alignSelf: 'center'}}>Today's Session</Text>
                 </View>
                 <View>
-                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Total Sales:</Text>
-                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Total Gratuity:</Text>
-                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Total Profits:</Text>
-                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Start Time:</Text>
-                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>End Time:</Text>
+                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Total Sales: ${currentStand.total_sales}</Text>
+                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Total Gratuity: ${currentStand.total_tips}</Text>
+                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Total Profits: ${currentStand.total_sales}</Text>
+                    <Text style={{color: colors.cadYellow, fontSize: 20, marginBottom: 20}}>Total Time: 1 minute</Text>
                 </View>
             </View>
             <View>

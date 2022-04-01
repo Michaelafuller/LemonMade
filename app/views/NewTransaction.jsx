@@ -1,9 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TextInput, View, StyleSheet, Button, Text, Image, Picker} from 'react-native';
+import axios from 'axios';
 
 import colors from '../assets/palette'
 
 function NewTransaction({navigation}) {
+    const [lemonades, setLemonades] = useState(0);
+    const [transaction, setTransaction] = useState({})
+
+    const lemonadeHandler = (number) => {
+        setLemonades(number)
+    }
+
+    const buyLemonade = () => {
+        const updatedTransaction = {
+            lemonades: lemonades,
+            price: 4*lemonades
+        }
+
+        axios.post('http://localhost:8000/api/transactions/', updatedTransaction)
+            .then(res => {
+                console.log(res.data);
+                setTransaction(res.data)
+            })
+            .catch(err => console.log(err));
+        
+        navigation.navigate('Invoice');
+    }
+
     return (
         <View style={styles.background}>
             <View style={[styles.title, styles.titleBar]}>
@@ -20,6 +44,7 @@ function NewTransaction({navigation}) {
                 <View>
                     <View style={{backgroundColor: 'white', marginTop: 30, width: '80%'}}>
                         <Picker>
+                            <Picker.Item label='Please Select one...' />
                             <Picker.Item label='Lemonade' value='lemonade' />
                             <Picker.Item label='Lemonade Mai Tai' value='lemonadeMaiTai' />
                             <Picker.Item label='Lemonade Royale' value='lemonadeRoyal' />
@@ -30,10 +55,12 @@ function NewTransaction({navigation}) {
                         style={{backgroundColor: 'white', height: 40, width:50, marginTop: 30}}
                         keyboardType='numeric'
                         placeholder='Qty'
+                        value={lemonades}
+                        onChangeText={lemonadeHandler}
                     />
                 </View>
                 <View style={{marginTop: 20}}>
-                    <Button title='Order' onPress={() => navigation.navigate('Invoice')}></Button>
+                    <Button title='Order' onPress={buyLemonade}></Button>
                 </View>
             </View>
             <View style={[styles.titleBar, {marginTop: '35%'}]}>

@@ -1,11 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet, Image, Picker} from 'react-native';
+import axios from 'axios';
 
 import colors from '../assets/palette'
 
 function BuyIngredients({navigation}) {
+    const [newName, setNewName] = useState('');
+    const [newPrice, setNewPrice] = useState(0);
+    const [newQuantity, setNewQuantity] = useState(0);
+    const [errorList, setErrorList] = useState([]);
+    
+    const priceHandler = (price) => {
+        setNewPrice(price)
+    }
+
+    const handleSubmit = () => {
+        const newPurchase = {
+            name: newName,
+            price: newPrice,
+            quantity: newQuantity
+        };
+
+        axios.post('http://localhost:8000/api/ingredient', newPurchase)
+            .then(res => {
+                console.log(res);
+                setNewName('');
+                setNewPrice(0);
+                setNewQuantity(0);
+            })
+            .catch(err => {
+                console.log(err);
+                const { errors } = err.response.data;
+                const messages = Object.keys(errors).map(error => errors[error].message)
+                setErrorList(messages);
+            })
+    }
     return (
         <View style={styles.background}>
+            <View>{errorList}</View>
             <View style={[styles.title, styles.titleBar]}>
                 <Text style={{color: colors.cadYellow, fontSize:50}}>LemonMade</Text>
                 <Image style={styles.logo} source={{uri: "https://d3gg7p8kl1yfy0.cloudfront.net/detail_Fresh_Squeezed_Lemonade_2.png?mtime=20190711110123&focal=none"}}/>
@@ -14,11 +46,12 @@ function BuyIngredients({navigation}) {
                 <View>
                     <Text style={{color: colors.cadYellow}}>I recently bought more...</Text>
                     <View style={{backgroundColor: 'white', marginTop: 20, width: '80%'}}>
-                        <Picker>
-                            <Picker.Item label='Lemons' value='lemons' />
-                            <Picker.Item label='Sugar' value='sugar' />
-                            <Picker.Item label='Plastic Cups' value='plasticCups' />
-                            <Picker.Item label='Ice' value='ice' />
+                        <Picker selectedValue={newName}
+                                onValueChange={newPurchase => setNewName(newPurchase)}>
+                            <Picker.Item label='Please Select One'/>
+                            <Picker.Item label='Lemons' value='Lemons' />
+                            <Picker.Item label='Sugar' value='Bags of Sugar' />
+                            <Picker.Item label='Plastic Cups' value='Plastic Cups' />
                         </Picker>
                     </View>
                 </View>
@@ -27,6 +60,8 @@ function BuyIngredients({navigation}) {
                     <TextInput
                         style={{backgroundColor: 'white', height: 40, width:50}}
                         keyboardType='numeric'
+                        onChangeText={priceHandler}
+                        value={newPrice}
                     />
                 </View>
                 <View style={{marginTop:20}}>
@@ -34,6 +69,9 @@ function BuyIngredients({navigation}) {
                     <TextInput
                         style={{backgroundColor: 'white', height: 40, width:50}}
                         keyboardType='numeric'
+                        onChangeText={value => {
+                            setNewQuantity(value)
+                        }}
                     />
                 </View>
                 <View style={{marginTop:20}}>
@@ -44,7 +82,7 @@ function BuyIngredients({navigation}) {
                     />
                 </View>
                 <View style={{marginTop: 45}}>
-                    <Button title='Update Inventory'></Button>
+                    <Button title='Update Inventory' onPress={handleSubmit}></Button>
                 </View>
             </View>
             <View style={styles.titleBar}>

@@ -6,6 +6,8 @@ import colors from '../assets/palette';
 
 function Dashboard({navigation}) {
     const [weather, setWeather] = useState({});
+    const [ingredients, setIngredients] = useState([]);
+
 
     useEffect(() => {
         axios.get('http://api.weatherapi.com/v1/current.json?key=9dc6cb1818c44e1aa6e13945223003&q=auto:ip&aqi=no')
@@ -18,7 +20,28 @@ function Dashboard({navigation}) {
                 })
             })
             .catch(err => console.log(err))
+            
+        axios.get('http://localhost:8000/api/ingredient')
+        .then(res => {
+            setIngredients(res.data)
+        })
+        .catch(err => console.log(err))
+
     }, [])
+
+    let cupTotal = 0, sugarTotal = 0, lemonTotal = 0;
+    const lemonsOnly = ingredients.filter(obj => obj.name === 'Lemons');
+    const sugarOnly = ingredients.filter(obj => obj.name === 'Plastic Cups');
+    const cupsOnly = ingredients.filter(obj => obj.name === 'Bags of Sugar');
+    for(let i = 0; i < lemonsOnly.length; i++) {
+        lemonTotal += lemonsOnly[i].quantity;
+    };
+    for(let i = 0; i < sugarOnly.length; i++) {
+        sugarTotal += sugarOnly[i].quantity;
+    };
+    for(let i = 0; i < cupsOnly.length; i++) {
+        cupTotal += cupsOnly[i].quantity;
+    };
 
     return (
         <View style={[styles.background]}>
@@ -35,11 +58,11 @@ function Dashboard({navigation}) {
                     <Button title="Change Price" onPress={() => navigation.navigate('ChangePrice')}></Button>
                 </View>
                 <View>
-                    <Text>Current Price per Cup: </Text>
-                    <Text>Lemon per Cup: </Text>
-                    <Text>Each Plastic Cup: </Text>
+                    <Text>Current Price per Cup: $4</Text>
+                    <Text>Lemon per Cup: $0.20</Text>
+                    <Text>Each Plastic Cup: $0.10</Text>
                     <View style={styles.titleBar}>
-                        <Text>Sugar Mix per Cup: </Text>
+                        <Text>Sugar Mix per Cup: $0.20</Text>
                         <Button title="Change Recipe" onPress={() => navigation.navigate('ChangeRecipe')}></Button>
                     </View>
                 </View>
@@ -49,10 +72,9 @@ function Dashboard({navigation}) {
                     <Text style={{color: colors.cadYellow, fontSize: 30, marginBottom:10}}>Inventory</Text>
                     <Button title="Buy Ingredients" onPress={() => navigation.navigate('BuyIngredients')}></Button>
                 </View>
-                <Text>Sugar:</Text>
-                <Text>Lemons:</Text>
-                <Text>Plastic Cups:</Text>
-                <Text>Other stuff...</Text>
+                <Text>Bags of Sugar: {sugarTotal}</Text>
+                <Text>Lemons: {lemonTotal}</Text>
+                <Text>Plastic Cups: {cupTotal}</Text>
             </View>
             <View style={{backgroundColor: colors.polishedPine, borderRadius: 5, marginTop:10}}>
                 <Text style={{marginTop: 10, marginLeft: 10, fontSize:20, color: colors.cadYellow}}>Weather</Text>
