@@ -19,4 +19,4 @@
   </tr>
 </table>
 
-# To access this site on your mobile device, you will need to download ExpoGo in the app store. The QR codew will automatically direct you to this download, first.
+# To access this site on your mobile device, you will need to download ExpoGo in the Google Play / iOS app store. The QR codew will automatically direct you to this download, first.
