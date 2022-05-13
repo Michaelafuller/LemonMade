@@ -1,7 +1,7 @@
 # LemonMade
 
 <h2>
-  LemonMade |<a href="https://expo.dev/@michaelafuller/LemonMade" alt ="site requires expo installed on mobile device">Site</a>
+  LemonMade | <a href="https://expo.dev/@michaelafuller/LemonMade" alt ="site requires expo installed on mobile device">Site</a>
 </h2>
 <table>
   <tr>
